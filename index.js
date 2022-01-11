@@ -60,7 +60,7 @@ let app = Vue.createApp({
     <div>
     <form @submit.prevent="changeMinutes">
        Temps <input v-model="enfantMinutes">
-        <button value="Submit"> Augmenter les Minutes</button>
+        <button value="Submit"> Augmenter les minutes</button>
        </form>
     </div>
 
@@ -74,10 +74,10 @@ let app = Vue.createApp({
     },
     methods: {
         changeSecondes(event){
-            this.$emit('sec_changed', this.enfantSecondes)
+            this.$emit('sec_changed', parseInt(this.enfantSecondes, 10))
         },
         changeMinutes(event){
-            this.$emit('min_changed', this.enfantMinutes * 60)
+            this.$emit('min_changed', parseInt(this.enfantSecondes, 10)*60)
         }
     }
   });
