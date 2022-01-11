@@ -36,7 +36,7 @@ let app = Vue.createApp({
             window.clearInterval(this.timer)
         },
         onSecondesChanged(value){
-            this.secondes = value    
+            this.secondes = this.secondes+ value    
         },
         secondes_en_temps(n){
             let minutes = Math.floor(n / 60);
