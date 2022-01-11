@@ -74,11 +74,9 @@ let app = Vue.createApp({
     },
     methods: {
         changeSecondes(event){
-            console.log("sec BOB")
             this.$emit('sec_changed', parseInt(this.enfantSecondes, 10))
         },
         changeMinutes(event){
-            console.log("BOB")
             this.$emit('min_changed', parseInt(this.enfantMinutes, 10)*60)
         }
     }
