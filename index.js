@@ -36,7 +36,7 @@ let app = Vue.createApp({
             window.clearInterval(this.timer)
         },
         onSecondesChanged(value){
-            this.secondes = this.secondes+ value    
+            this.secondes = this.secondes + value    
         },
         secondes_en_temps(n){
             let minutes = Math.floor(n / 60);
@@ -74,10 +74,12 @@ let app = Vue.createApp({
     },
     methods: {
         changeSecondes(event){
+            console.log("sec BOB")
             this.$emit('sec_changed', parseInt(this.enfantSecondes, 10))
         },
         changeMinutes(event){
-            this.$emit('min_changed', parseInt(this.enfantSecondes, 10)*60)
+            console.log("BOB")
+            this.$emit('min_changed', parseInt(this.enfantMinutes, 10)*60)
         }
     }
   });
