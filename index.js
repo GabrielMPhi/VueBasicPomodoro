@@ -12,8 +12,7 @@ let app = Vue.createApp({
       <button v-on:click="stop_timer">Stop</button>
       <button v-on:click="secondes+=1">Plus 1 sec</button>
       </div>
-      <vue_settings v-model:secondes="secondes"
-      @changed="onSecondesChanged" />
+      <vue_settings @sec_changed="onSecondesChanged" @min_changed="onSecondesChanged" />
       </div>
     `,
     data: function (){
@@ -54,19 +53,31 @@ let app = Vue.createApp({
     <div>
     <form @submit.prevent="changeSecondes">
        Temps <input v-model="enfantSecondes">
-        <button value="Submit"> Augmenter </button>
+        <button value="Submit"> Augmenter les secondes</button>
        </form>
     </div>
+
+    <div>
+    <form @submit.prevent="changeMinutes">
+       Temps <input v-model="enfantMinutes">
+        <button value="Submit"> Augmenter les Minutes</button>
+       </form>
+    </div>
+
     `,
     props: ['secondes'],
     data: function(){
         return {
-            enfantSecondes: this.secondes
+            enfantSecondes: 0,
+            enfantMinutes: 0
         }
     },
     methods: {
         changeSecondes(event){
-            this.$emit('changed', this.enfantSecondes)
+            this.$emit('sec_changed', this.enfantSecondes)
+        },
+        changeMinutes(event){
+            this.$emit('min_changed', this.enfantMinutes * 60)
         }
     }
   });
