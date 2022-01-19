@@ -18,7 +18,7 @@ let app = Vue.createApp({
       <vue_settings @sec_changed="onSecondesChanged" @min_changed="onSecondesChanged" />
       </div>
       <div class="box is-primary"> Nombre de pomodoro complété : {{ pomodoro_complete }} </div>
-      <button class="button is-primary" v-on:click="pomodoro_complete=0">Remettre à 0</button>
+      <button class="button is-primary" v-on:click="pomodoro_complete=0">Remettre les pomodoros complétés à 0</button>
       </div>
     `,
     data: function (){
@@ -26,19 +26,28 @@ let app = Vue.createApp({
             secondes: 10,
             timer: null,
             maximum: 10,
-            pomodoro_complete:0
+            pomodoro_complete:0,
+            son_succes: new Audio('succes.mp3')
         }
     },
     mounted(){
         if(localStorage.temps){
             this.secondes = JSON.parse(localStorage.temps)
         }
+        if(localStorage.nb_pomodoro){
+            this.pomodoro_complete = JSON.parse(localStorage.nb_pomodoro)
+        }
     }
     ,
     watch: {
         secondes(newTime){
             localStorage.temps = JSON.stringify(newTime)
+        },
+        pomodoro_complete(nbPomodo){
+            localStorage.nb_pomodoro = JSON.stringify(nbPomodo)
         }
+
+
     },
     methods: {
         start_timer() {
@@ -49,6 +58,7 @@ let app = Vue.createApp({
                 this.secondes -= 1; 
             } else {
                 this.pomodoro_complete+=1
+                this.play_sound()
                 this.stop_timer()
             }
         },
@@ -64,6 +74,9 @@ let app = Vue.createApp({
             let remaindersecondes = n % 60;
             let result = `${minutes}:${remaindersecondes < 10 ? '0' : ''}${remaindersecondes}`;
             return result
+        },
+        play_sound(){
+            this.son_succes.play()
         }
     },
     components: ['vue_settings'],
