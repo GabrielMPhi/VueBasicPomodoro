@@ -12,10 +12,13 @@ let app = Vue.createApp({
       <button class="button is-primary" v-on:click="start_timer">Commencer</button>
       <button class="button is-primary" v-on:click="stop_timer">Stop</button>
       <button class="button is-primary" v-on:click="secondes+=1">Plus 1 sec</button>
+      <button class="button is-primary" v-on:click="secondes=1500">25 minutes</button>
       </div>
       <div class="box">
       <vue_settings @sec_changed="onSecondesChanged" @min_changed="onSecondesChanged" />
       </div>
+      <div class="box is-primary"> Nombre de pomodoro complété : {{ pomodoro_complete }} </div>
+      <button class="button is-primary" v-on:click="pomodoro_complete=0">Remettre à 0</button>
       </div>
     `,
     data: function (){
@@ -23,6 +26,19 @@ let app = Vue.createApp({
             secondes: 10,
             timer: null,
             maximum: 10,
+            pomodoro_complete:0
+        }
+    },
+    mounted(){
+        if(localStorage.temps){
+            this.secondes = JSON.parse(localStorage.temps)
+        }
+    }
+    ,
+    watch: {
+        secondes(newTime){
+            console.log("Ok")
+            localStorage.temps = JSON.stringify(newTime)
         }
     },
     methods: {
@@ -33,6 +49,7 @@ let app = Vue.createApp({
             if(this.secondes > 0){
                 this.secondes -= 1; 
             } else {
+                this.pomodoro_complete+=1
                 this.stop_timer()
             }
         },
