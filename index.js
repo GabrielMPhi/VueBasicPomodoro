@@ -37,7 +37,6 @@ let app = Vue.createApp({
     ,
     watch: {
         secondes(newTime){
-            console.log("Ok")
             localStorage.temps = JSON.stringify(newTime)
         }
     },
